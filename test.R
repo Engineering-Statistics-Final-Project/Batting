@@ -11,6 +11,9 @@ wRAA        <- vector()
 wOBA        <- vector()
 WRC_plus    <- vector()
 
+Bat_Clutch  <- vector()
+Pit_clutch  <- vector()
+
 for (i in 1995:2019){
     str1 <- "WDATA/"
     str2 <- ".txt"
@@ -72,6 +75,37 @@ for (i in 1995:2019){
             WRC_plus <- c(WRC_plus,tmp[j,19])
         }
     }
+
+
+    str1 <- "BWPDATA/"
+    file_name <- paste(str1, i, str2, sep = "")
+
+    if(i<=1997){
+        for(j in 1:28){
+            tmp         <- read.table(file_name)
+            Bat_Clutch  <- c(Bat_Clutch,tmp[j,11])
+        }
+    } else {
+        for(j in 1:30){
+            tmp         <- read.table(file_name)
+            Bat_Clutch  <- c(Bat_Clutch,tmp[j,11])
+        }
+    }
+
+    str1 <- "PWPDATA/"
+    file_name <- paste(str1, i, str2, sep = "")
+
+    if(i<=1997){
+        for(j in 1:28){
+            tmp         <- read.table(file_name)
+            Pit_clutch  <- c(Pit_clutch,tmp[j,13])
+        }
+    } else {
+        for(j in 1:30){
+            tmp         <- read.table(file_name)
+            Pit_clutch  <- c(Pit_clutch,tmp[j,13])
+        }
+    }
 }
 
 ########################### HR ##########################
@@ -111,11 +145,6 @@ qqnorm(WRC_plus,col="blue",ylab="WRC+",pch=0)
 qqline(WRC_plus,col="red")
 dev.off()
 ########################### WRC+ ##########################
-
-
-# for (i in 1:744){
-#     print(AVG[i])
-# }
 
 ########################### HIT ##########################
 png(file = "HIT-WINS.png")
@@ -249,3 +278,27 @@ qqnorm(SLG,col="blue",ylab="SLG",pch=0)
 qqline(SLG,col="red")
 dev.off()
 ########################### SLG ##########################
+
+total_clutch <- vector()
+total_clutch <- Pit_clutch+Bat_Clutch
+
+# for (i in 1:744){
+#     print(total_clutch[i])
+# }
+
+png(file = "Clutch-WINS.png")
+plot(total_clutch, wins,
+     main="Clutch-WINS 1995-2019",
+     ylab = "WINS",
+     xlab = "Clutch"
+     )
+abline(lm(wins~total_clutch),col="red")
+dev.off()
+
+
+cor.test(total_clutch,wins)
+
+png(file = "Clutch-WINS-qqplot.png")
+qqnorm(total_clutch,col="blue",ylab="Clutch",pch=0)
+qqline(total_clutch,col="red")
+dev.off()
