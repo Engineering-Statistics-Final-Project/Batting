@@ -1,7 +1,7 @@
 library(readr)
 source_data <- vector()
 
-setwd("/home/chilin/batting-R-W")
+print(getwd())
 
 source_data_2019    <- read.table("DATA/2019.txt")
 source_data_2018    <- read.table("DATA/2018.txt")
