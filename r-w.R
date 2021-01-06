@@ -95,7 +95,7 @@ for (j in c(1:30)){
     r_vector <- c(r_vector,source_data_2017[j,9])    
     r_vector <- c(r_vector,source_data_2016[j,9])    
     r_vector <- c(r_vector,source_data_2015[j,9])    
-    r_vector <- c(r_vector,source_data_2019[j,9])    
+    r_vector <- c(r_vector,source_data_2014[j,9])    
     r_vector <- c(r_vector,source_data_2013[j,9])    
     r_vector <- c(r_vector,source_data_2012[j,9])    
     r_vector <- c(r_vector,source_data_2011[j,9])    
